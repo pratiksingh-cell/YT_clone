@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Minecraft Web Edition</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+  <!-- Import Map so Three.js & Simplex Noise work cleanly in later chunks -->
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js"
+      }
+    }
+  </script>
+</head>
+<body>
+
+  <!-- Animated Panorama Background -->
+  <div id="panorama-bg"></div>
+
+  <!-- Top-Right Auto-Save / Status Toast -->
+  <div id="status-toast" class="hidden">Saving chunk data...</div>
+
+  <!-- SCREEN 1: GOOGLE AUTH -->
+  <div id="screen-auth" class="ui-screen">
+    <div class="mc-logo">MINECRAFT</div>
+    <div class="mc-splash">Firebase Cloud Edition!</div>
+    <div class="mc-panel">
+      <p class="mc-label">Sign in to sync your profile and worlds automatically</p>
+      <button id="btn-google-login" class="mc-btn">Sign in with Google</button>
+      <p id="auth-error" class="mc-error"></p>
+    </div>
+  </div>
+
+  <!-- SCREEN 2: FIRST-TIME PROFILE CREATION -->
+  <div id="screen-profile" class="ui-screen hidden">
+    <div class="mc-panel">
+      <h2 class="mc-heading">Create Crafter Profile</h2>
+      <p class="mc-label">Choose your permanent in-game display name:</p>
+      <input type="text" id="input-username" class="mc-input" placeholder="e.g. Steve_Builder" maxlength="16" />
+      <p class="mc-label">Select Starter Skin Theme:</p>
+      <select id="select-skin" class="mc-input">
+        <option value="steve">Classic Cyan (Steve)</option>
+        <option value="alex">Forest Explorer (Alex)</option>
+        <option value="redstone">Redstone Engineer</option>
+      </select>
+      <button id="btn-save-profile" class="mc-btn">Save Profile & Enter</button>
+    </div>
+  </div>
+
+  <!-- SCREEN 3: MAIN MENU -->
+  <div id="screen-menu" class="ui-screen hidden">
+    <div class="mc-logo">MINECRAFT</div>
+    <div class="mc-splash" id="welcome-splash">Welcome Crafter!</div>
+
+    <div class="mc-menu-buttons">
+      <button id="btn-singleplayer" class="mc-btn">Singleplayer (Cloud Worlds)</button>
+      <button id="btn-edit-profile" class="mc-btn">Edit Profile</button>
+      <button id="btn-logout" class="mc-btn mc-btn-danger">Log Out</button>
+    </div>
+
+    <div class="mc-footer">
+      <span id="footer-version">Minecraft Web 1.0 (Three.js + Firebase)</span>
+      <span id="footer-user">Logged in</span>
+    </div>
+  </div>
+
+  <!-- SCREEN 4: WORLD SELECTION (Populated in Chunk 2) -->
+  <div id="screen-worlds" class="ui-screen hidden"></div>
+
+  <!-- 3D GAME CANVAS CONTAINER (Used in Chunks 3-10) -->
+  <div id="game-container" class="hidden"></div>
+
+  <!-- Load Chunk 1 Logic -->
+  <script type="module" src="./firebase-mgr.js"></script>
+</body>
+</html>
