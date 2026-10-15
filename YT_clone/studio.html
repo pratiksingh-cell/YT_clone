@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Studio Clone</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-900">
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md p-4 flex justify-between items-center">
+        <h1 class="text-xl font-bold text-gray-800">Studio Dashboard</h1>
+        <a href="index.html" class="text-blue-600 hover:underline">Back to YouTube</a>
+    </nav>
+
+    <main class="p-8 max-w-3xl mx-auto">
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <h2 class="text-2xl font-bold mb-4">Add a New Video (Embed)</h2>
+            <form id="upload-form" class="flex flex-col gap-4">
+                <div>
+                    <label class="block font-medium">Video Title</label>
+                    <input type="text" id="title" class="w-full border p-2 rounded" required>
+                </div>
+                <div>
+                    <label class="block font-medium">YouTube Embed URL</label>
+                    <input type="url" id="video-url" placeholder="https://www.youtube.com/embed/..." class="w-full border p-2 rounded" required>
+                    <p class="text-sm text-gray-500 mt-1">Example: https://www.youtube.com/embed/dQw4w9WgXcQ</p>
+                </div>
+                <div>
+                    <label class="block font-medium">Channel Name</label>
+                    <input type="text" id="channel" class="w-full border p-2 rounded" required>
+                </div>
+                <button type="submit" class="bg-red-600 text-white py-2 rounded hover:bg-red-700">Publish Video</button>
+            </form>
+            <p id="status-msg" class="mt-4 text-green-600 hidden">Video published successfully!</p>
+        </div>
+    </main>
+
+    <script type="module" src="js/firebase-config.js"></script>
+    <script type="module" src="js/studio.js"></script>
+</body>
+</html>
