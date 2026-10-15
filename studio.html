@@ -5,37 +5,380 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YouTube Studio Clone</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+    </style>
 </head>
-<body class="bg-gray-50 text-gray-900">
-    <!-- Navbar -->
-    <nav class="bg-white shadow-md p-4 flex justify-between items-center">
-        <h1 class="text-xl font-bold text-gray-800">Studio Dashboard</h1>
-        <a href="index.html" class="text-blue-600 hover:underline">Back to YouTube</a>
+<body class="bg-[#181818] text-white antialiased selection:bg-red-600 selection:text-white">
+
+    <!-- Top Navigation Bar -->
+    <nav class="bg-[#212121] h-16 px-4 md:px-6 flex justify-between items-center fixed w-full top-0 z-50 border-b border-white/10 shadow-sm">
+        
+        <!-- Left: Sidebar Toggle & Studio Brand -->
+        <div class="flex items-center gap-4">
+            <button id="sidebar-toggle" class="p-2 rounded-full hover:bg-white/10 transition" aria-label="Toggle Sidebar">
+                <svg class="w-6 h-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                </svg>
+            </button>
+            <a href="studio.html" class="flex items-center gap-2 group">
+                <div class="bg-red-600 text-white p-1.5 rounded-lg group-hover:bg-red-500 transition">
+                    <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/>
+                    </svg>
+                </div>
+                <span class="text-xl font-bold tracking-tight">Studio</span>
+            </a>
+        </div>
+
+        <!-- Center: Studio Help / Quick Search -->
+        <div class="hidden md:flex flex-1 max-w-xl mx-6">
+            <div class="relative w-full">
+                <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-gray-400">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z"/>
+                    </svg>
+                </span>
+                <input 
+                    type="text" 
+                    placeholder="Paste any YouTube watch or share link to auto-convert below..." 
+                    id="quick-url-converter"
+                    class="w-full bg-[#121212] text-sm text-white placeholder-gray-500 pl-10 pr-4 py-2 rounded-lg border border-white/10 focus:border-blue-500 focus:outline-none transition"
+                />
+            </div>
+        </div>
+
+        <!-- Right: Back to YouTube & Create Action -->
+        <div class="flex items-center gap-3">
+            <a href="index.html" class="flex items-center gap-2 bg-[#2a2a2a] hover:bg-[#383838] border border-white/10 text-gray-200 px-4 py-2 rounded-full text-sm font-medium transition">
+                <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                </svg>
+                <span>Back to YouTube</span>
+            </a>
+        </div>
     </nav>
 
-    <main class="p-8 max-w-3xl mx-auto">
-        <div class="bg-white p-6 rounded-lg shadow-md">
-            <h2 class="text-2xl font-bold mb-4">Add a New Video (Embed)</h2>
-            <form id="upload-form" class="flex flex-col gap-4">
-                <div>
-                    <label class="block font-medium">Video Title</label>
-                    <input type="text" id="title" class="w-full border p-2 rounded" required>
+    <!-- Studio Layout Wrapper -->
+    <div class="flex pt-16 min-h-screen">
+        
+        <!-- Left Studio Sidebar -->
+        <aside id="studio-sidebar" class="hidden lg:flex flex-col w-64 fixed left-0 top-16 bottom-0 bg-[#212121] border-r border-white/10 select-none z-40 justify-between">
+            <div>
+                <!-- Creator Profile Summary -->
+                <div class="p-6 flex flex-col items-center border-b border-white/10">
+                    <div class="w-20 h-20 rounded-full bg-gradient-to-tr from-red-600 to-rose-400 flex items-center justify-center text-2xl font-bold shadow-lg mb-3">
+                        YT
+                    </div>
+                    <p class="text-sm font-semibold text-white">Your Channel</p>
+                    <p id="sidebar-channel-preview" class="text-xs text-gray-400 mt-0.5">Creator Studio</p>
                 </div>
-                <div>
-                    <label class="block font-medium">YouTube Embed URL</label>
-                    <input type="url" id="video-url" placeholder="https://www.youtube.com/embed/..." class="w-full border p-2 rounded" required>
-                    <p class="text-sm text-gray-500 mt-1">Example: https://www.youtube.com/embed/dQw4w9WgXcQ</p>
-                </div>
-                <div>
-                    <label class="block font-medium">Channel Name</label>
-                    <input type="text" id="channel" class="w-full border p-2 rounded" required>
-                </div>
-                <button type="submit" class="bg-red-600 text-white py-2 rounded hover:bg-red-700">Publish Video</button>
-            </form>
-            <p id="status-msg" class="mt-4 text-green-600 hidden">Video published successfully!</p>
-        </div>
-    </main>
 
+                <!-- Navigation Links -->
+                <nav class="p-3 space-y-1">
+                    <a href="#upload-section" class="flex items-center gap-4 px-4 py-3 rounded-lg bg-red-600/15 text-red-400 font-medium text-sm border-l-4 border-red-500">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
+                        </svg>
+                        <span>Publish Video</span>
+                    </a>
+                    <a href="index.html" class="flex items-center gap-4 px-4 py-3 rounded-lg hover:bg-white/5 text-gray-300 font-normal text-sm transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <span>View Channel Feed</span>
+                    </a>
+                </nav>
+            </div>
+
+            <!-- Helper Footer -->
+            <div class="p-4 m-3 rounded-xl bg-[#181818] border border-white/5 text-xs text-gray-400 space-y-1.5">
+                <div class="flex items-center gap-1.5 text-gray-200 font-medium">
+                    <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <span>Smart Link Support</span>
+                </div>
+                <p>Paste any regular or unlisted YouTube link—we auto-convert it to the required <code class="text-gray-300">/embed/</code> URL.</p>
+            </div>
+        </aside>
+
+        <!-- Main Studio Content -->
+        <main id="studio-main" class="flex-1 lg:ml-64 p-4 sm:p-6 md:p-8 max-w-6xl mx-auto w-full">
+            
+            <!-- Page Header -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-white/10">
+                <div>
+                    <h1 class="text-2xl font-bold text-white">Channel Content & Upload</h1>
+                    <p class="text-sm text-gray-400 mt-1">Publish unlisted or public YouTube videos directly to your platform feed.</p>
+                </div>
+                <span class="inline-flex items-center gap-2 text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-3 py-1.5 rounded-full self-start sm:self-auto">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    Connected to Firebase
+                </span>
+            </div>
+
+            <!-- Two-Column Studio Grid: Form + Live Preview -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start" id="upload-section">
+                
+                <!-- Left Column: Upload Form (7 cols on large screens) -->
+                <div class="lg:col-span-7 bg-[#212121] border border-white/10 rounded-2xl p-6 shadow-xl">
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-lg font-bold text-white">Video Details</h2>
+                        <span class="text-xs text-gray-400">All fields required</span>
+                    </div>
+
+                    <!-- Form (Preserves #upload-form, #title, #video-url, #channel, and #status-msg for js/studio.js) -->
+                    <form id="upload-form" class="space-y-5">
+                        
+                        <!-- Video Title -->
+                        <div class="bg-[#181818] border border-white/15 focus-within:border-blue-500 rounded-xl p-3.5 transition">
+                            <div class="flex justify-between items-center mb-1">
+                                <label for="title" class="block text-xs font-medium text-gray-400">Title (required)</label>
+                                <span id="title-count" class="text-[11px] text-gray-500">0/100</span>
+                            </div>
+                            <input 
+                                type="text" 
+                                id="title" 
+                                maxlength="100"
+                                placeholder="Add a title that describes your video" 
+                                class="w-full bg-transparent text-white placeholder-gray-500 text-sm focus:outline-none" 
+                                required
+                            >
+                        </div>
+
+                        <!-- YouTube Embed URL -->
+                        <div class="bg-[#181818] border border-white/15 focus-within:border-blue-500 rounded-xl p-3.5 transition">
+                            <div class="flex justify-between items-center mb-1">
+                                <label for="video-url" class="block text-xs font-medium text-gray-400">YouTube Embed URL (or standard YouTube link)</label>
+                                <button type="button" id="convert-url-btn" class="text-xs text-blue-400 hover:underline">Format to Embed</button>
+                            </div>
+                            <input 
+                                type="url" 
+                                id="video-url" 
+                                placeholder="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                                class="w-full bg-transparent text-white placeholder-gray-500 text-sm focus:outline-none" 
+                                required
+                            >
+                            <div class="flex flex-wrap items-center justify-between gap-2 mt-2 pt-2 border-t border-white/5">
+                                <p class="text-xs text-gray-500">Example: <span class="text-gray-400 font-mono">https://www.youtube.com/embed/dQw4w9WgXcQ</span></p>
+                                <span id="url-badge" class="hidden text-[11px] bg-blue-500/15 text-blue-400 px-2 py-0.5 rounded">Auto-formatted to /embed/</span>
+                            </div>
+                        </div>
+
+                        <!-- Channel Name -->
+                        <div class="bg-[#181818] border border-white/15 focus-within:border-blue-500 rounded-xl p-3.5 transition">
+                            <label for="channel" class="block text-xs font-medium text-gray-400 mb-1">Channel Name</label>
+                            <input 
+                                type="text" 
+                                id="channel" 
+                                placeholder="e.g. CodeWithMe, Gaming Hub" 
+                                class="w-full bg-transparent text-white placeholder-gray-500 text-sm focus:outline-none" 
+                                required
+                            >
+                        </div>
+
+                        <!-- Submit & Reset Buttons -->
+                        <div class="pt-2 flex items-center justify-end gap-3">
+                            <button 
+                                type="button" 
+                                id="clear-form-btn"
+                                class="px-4 py-2.5 rounded-full text-sm font-medium text-gray-300 hover:bg-white/10 transition"
+                            >
+                                Clear
+                            </button>
+                            <button 
+                                type="submit" 
+                                class="flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-medium text-sm px-6 py-2.5 rounded-full shadow-lg shadow-blue-600/20 transition"
+                            >
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                </svg>
+                                <span>Publish Video</span>
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- Status Message (Preserved #status-msg ID for js/studio.js) -->
+                    <p id="status-msg" class="mt-4 bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 px-4 py-3 rounded-xl text-sm font-medium hidden">
+                        Video published successfully!
+                    </p>
+                </div>
+
+                <!-- Right Column: Live Video & Feed Card Preview (5 cols on large screens) -->
+                <div class="lg:col-span-5 bg-[#212121] border border-white/10 rounded-2xl overflow-hidden shadow-xl sticky top-24">
+                    <div class="px-5 py-3.5 border-b border-white/10 flex items-center justify-between">
+                        <span class="text-xs font-medium uppercase tracking-wider text-gray-400">Live Player Preview</span>
+                        <span id="preview-status" class="text-xs text-gray-500">Waiting for link...</span>
+                    </div>
+
+                    <!-- 16:9 Video Embed Container -->
+                    <div class="aspect-video w-full bg-[#121212] relative flex items-center justify-center overflow-hidden">
+                        <iframe 
+                            id="video-preview-iframe" 
+                            class="w-full h-full hidden" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen
+                        ></iframe>
+                        <div id="video-preview-placeholder" class="flex flex-col items-center text-center p-6 text-gray-500">
+                            <svg class="w-12 h-12 mb-2 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                            </svg>
+                            <p class="text-sm text-gray-400 font-medium">Enter a YouTube URL to preview</p>
+                            <p class="text-xs text-gray-500 mt-1">Supports watch?v=, youtu.be/, and /embed/ links</p>
+                        </div>
+                    </div>
+
+                    <!-- Metadata Preview Card -->
+                    <div class="p-5 space-y-4">
+                        <div class="flex items-start gap-3">
+                            <div id="preview-avatar" class="w-9 h-9 rounded-full bg-red-600 flex items-center justify-center text-sm font-bold text-white shrink-0">
+                                C
+                            </div>
+                            <div class="min-w-0 flex-1">
+                                <h3 id="preview-title" class="text-sm font-semibold text-white line-clamp-2 break-words">
+                                    Your video title will appear here
+                                </h3>
+                                <p id="preview-channel" class="text-xs text-gray-400 mt-1 truncate">
+                                    Channel Name • Just now
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="pt-3 border-t border-white/10 flex items-center justify-between text-xs text-gray-400">
+                            <span>Embed Link Format</span>
+                            <span id="embed-check" class="text-amber-400">Not verified</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Built-in Studio Helper Script (Auto-converts standard YT URLs to /embed/ & powers Live Preview) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const titleInput = document.getElementById('title');
+            const urlInput = document.getElementById('video-url');
+            const quickConverter = document.getElementById('quick-url-converter');
+            const channelInput = document.getElementById('channel');
+            const titleCount = document.getElementById('title-count');
+            const urlBadge = document.getElementById('url-badge');
+            const convertBtn = document.getElementById('convert-url-btn');
+            const clearFormBtn = document.getElementById('clear-form-btn');
+
+            const previewIframe = document.getElementById('video-preview-iframe');
+            const previewPlaceholder = document.getElementById('video-preview-placeholder');
+            const previewTitle = document.getElementById('preview-title');
+            const previewChannel = document.getElementById('preview-channel');
+            const previewAvatar = document.getElementById('preview-avatar');
+            const sidebarChannel = document.getElementById('sidebar-channel-preview');
+            const previewStatus = document.getElementById('preview-status');
+            const embedCheck = document.getElementById('embed-check');
+
+            const sidebarToggle = document.getElementById('sidebar-toggle');
+            const studioSidebar = document.getElementById('studio-sidebar');
+            const studioMain = document.getElementById('studio-main');
+
+            // Extract 11-character YouTube Video ID from any YouTube URL format
+            function extractYouTubeId(url) {
+                if (!url) return null;
+                const regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|shorts\/)([^#\&\?]*).*/;
+                const match = url.match(regExp);
+                return (match && match[2].length === 11) ? match[2] : null;
+            }
+
+            // Convert any pasted YouTube link into https://www.youtube.com/embed/VIDEO_ID
+            function normalizeAndPreviewUrl(rawUrl, showBadge = false) {
+                const videoId = extractYouTubeId(rawUrl.trim());
+                if (videoId) {
+                    const cleanEmbedUrl = `https://www.youtube.com/embed/${videoId}`;
+                    if (urlInput.value !== cleanEmbedUrl) {
+                        urlInput.value = cleanEmbedUrl;
+                        if (showBadge) urlBadge.classList.remove('hidden');
+                    }
+                    previewIframe.src = cleanEmbedUrl;
+                    previewIframe.classList.remove('hidden');
+                    previewPlaceholder.classList.add('hidden');
+                    previewStatus.textContent = `ID: ${videoId}`;
+                    previewStatus.className = 'text-xs text-emerald-400 font-mono';
+                    embedCheck.textContent = 'Ready to publish';
+                    embedCheck.className = 'text-emerald-400 font-medium';
+                } else {
+                    previewIframe.src = '';
+                    previewIframe.classList.add('hidden');
+                    previewPlaceholder.classList.remove('hidden');
+                    previewStatus.textContent = 'Waiting for valid link...';
+                    previewStatus.className = 'text-xs text-gray-500';
+                    embedCheck.textContent = 'Invalid or empty URL';
+                    embedCheck.className = 'text-amber-400';
+                    urlBadge.classList.add('hidden');
+                }
+            }
+
+            // Live Title Update
+            titleInput.addEventListener('input', () => {
+                const val = titleInput.value.trim();
+                titleCount.textContent = `${titleInput.value.length}/100`;
+                previewTitle.textContent = val || 'Your video title will appear here';
+            });
+
+            // Live Channel Update
+            channelInput.addEventListener('input', () => {
+                const val = channelInput.value.trim();
+                previewChannel.textContent = val ? `${val} • Just now` : 'Channel Name • Just now';
+                previewAvatar.textContent = val ? val.charAt(0).toUpperCase() : 'C';
+                sidebarChannel.textContent = val || 'Creator Studio';
+            });
+
+            // Auto-format URL on input/paste
+            urlInput.addEventListener('input', () => {
+                normalizeAndPreviewUrl(urlInput.value, true);
+            });
+
+            convertBtn.addEventListener('click', () => {
+                normalizeAndPreviewUrl(urlInput.value, true);
+            });
+
+            // Top bar quick converter
+            if (quickConverter) {
+                quickConverter.addEventListener('input', () => {
+                    if (quickConverter.value.trim()) {
+                        normalizeAndPreviewUrl(quickConverter.value, true);
+                        quickConverter.value = '';
+                    }
+                });
+            }
+
+            // Clear Form button
+            clearFormBtn.addEventListener('click', () => {
+                titleInput.value = '';
+                urlInput.value = '';
+                channelInput.value = '';
+                titleCount.textContent = '0/100';
+                previewTitle.textContent = 'Your video title will appear here';
+                previewChannel.textContent = 'Channel Name • Just now';
+                previewAvatar.textContent = 'C';
+                normalizeAndPreviewUrl('');
+            });
+
+            // Sidebar Toggle
+            sidebarToggle.addEventListener('click', () => {
+                studioSidebar.classList.toggle('lg:hidden');
+                studioMain.classList.toggle('lg:ml-64');
+            });
+        });
+    </script>
+
+    <!-- Existing Firebase & Studio Scripts -->
     <script type="module" src="js/firebase-config.js"></script>
     <script type="module" src="js/studio.js"></script>
 </body>
