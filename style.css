@@ -1,0 +1,178 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  font-family: 'VT323', monospace;
+}
+
+body, html {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #111;
+  color: #fff;
+}
+
+/* Classic Dirt/Panorama Background Effect */
+#panorama-bg {
+  position: fixed;
+  inset: 0;
+  background: 
+    linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.65)),
+    repeating-conic-gradient(#3b2716 0% 25%, #2e1d10 0% 50%) 50% / 32px 32px;
+  z-index: 0;
+}
+
+.ui-screen {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Minecraft Blocky Title */
+.mc-logo {
+  font-size: 5.5rem;
+  letter-spacing: 4px;
+  color: #d8d8d8;
+  text-shadow: 
+    0 6px 0 #3f3f3f,
+    4px 6px 0 #222,
+    -4px 6px 0 #222,
+    0 12px 20px rgba(0,0,0,0.8);
+  margin-bottom: 5px;
+}
+
+.mc-splash {
+  font-size: 1.6rem;
+  color: #ffff55;
+  text-shadow: 2px 2px 0 #3f3f00;
+  transform: rotate(-8deg);
+  margin-bottom: 35px;
+  animation: pulse 1.2s infinite alternate ease-in-out;
+}
+
+@keyframes pulse {
+  from { transform: rotate(-8deg) scale(1); }
+  to { transform: rotate(-8deg) scale(1.08); }
+}
+
+.mc-panel {
+  background: rgba(0, 0, 0, 0.72);
+  border: 3px solid #555;
+  padding: 28px;
+  width: 420px;
+  max-width: 92vw;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: inset 0 0 0 3px #111;
+}
+
+.mc-heading {
+  font-size: 2.2rem;
+  text-align: center;
+  color: #fff;
+  text-shadow: 2px 2px 0 #222;
+}
+
+.mc-label {
+  font-size: 1.35rem;
+  color: #ccc;
+}
+
+.mc-input {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 1.5rem;
+  background: #000;
+  color: #fff;
+  border: 2px solid #a0a0a0;
+  outline: none;
+}
+
+.mc-input:focus {
+  border-color: #ffff55;
+}
+
+/* Authentic 3D Beveled Minecraft Button */
+.mc-btn {
+  width: 400px;
+  max-width: 100%;
+  padding: 10px 16px;
+  font-size: 1.65rem;
+  color: #e0e0e0;
+  background-color: #727272;
+  border-top: 3px solid #aaa;
+  border-left: 3px solid #aaa;
+  border-right: 3px solid #333;
+  border-bottom: 3px solid #333;
+  outline: 2px solid #000;
+  text-shadow: 2px 2px 0 #222;
+  cursor: pointer;
+  text-align: center;
+}
+
+.mc-btn:hover {
+  background-color: #7c86aa;
+  color: #ffffa0;
+  border-top-color: #b8c4ec;
+  border-left-color: #b8c4ec;
+}
+
+.mc-btn:active {
+  border-top: 3px solid #333;
+  border-left: 3px solid #333;
+  border-right: 3px solid #aaa;
+  border-bottom: 3px solid #aaa;
+}
+
+.mc-btn-danger:hover {
+  background-color: #a84242;
+}
+
+.mc-menu-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: center;
+}
+
+.mc-error {
+  color: #ff5555;
+  font-size: 1.3rem;
+  text-align: center;
+}
+
+.mc-footer {
+  position: fixed;
+  bottom: 10px;
+  left: 16px;
+  right: 16px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.3rem;
+  color: #aaa;
+  text-shadow: 2px 2px 0 #000;
+}
+
+#status-toast {
+  position: fixed;
+  top: 14px;
+  right: 14px;
+  z-index: 999;
+  background: rgba(0, 0, 0, 0.8);
+  border: 2px solid #888;
+  padding: 8px 14px;
+  font-size: 1.3rem;
+  color: #55ff55;
+}
