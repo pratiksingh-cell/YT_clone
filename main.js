@@ -16,10 +16,13 @@ window.addEventListener("launch-3d-world", (e) => {
 });
 
 function launchGame(world) {
-  // 1. Hide UI screens and reveal 3D canvas container
+  // FIX 1: Hide the panorama background so it doesn't cover the 3D canvas
   const screenWorlds = document.getElementById("screen-worlds");
   const gameContainer = document.getElementById("game-container");
+  const panoramaBg = document.getElementById("panorama-bg");
+  
   if (screenWorlds) screenWorlds.classList.add("hidden");
+  if (panoramaBg) panoramaBg.classList.add("hidden");
   if (gameContainer) gameContainer.classList.remove("hidden");
   gameContainer.innerHTML = ""; // Clear previous canvas if any
 
@@ -47,8 +50,8 @@ function launchGame(world) {
   
   const chunkManager = new ChunkManager(scene, worldGen, modifiedBlocks);
 
-  // Determine starting position (saved player position or default spawn point)
-  const spawnPos = world.playerPosition || { x: 8, y: 30, z: 8 };
+  // FIX 2: Spawn at Y: 60 instead of 30 so you fall onto the surface safely!
+  const spawnPos = world.playerPosition || { x: 8, y: 60, z: 8 };
   const player = new Player(camera, scene, worldGen, modifiedBlocks, spawnPos);
 
   const autoSaver = new AutoSaver(world.id, modifiedBlocks, player);
@@ -110,5 +113,8 @@ function cleanupGame() {
     gameInstance = null;
   }
   const gameContainer = document.getElementById("game-container");
+  const panoramaBg = document.getElementById("panorama-bg");
+  
   if (gameContainer) gameContainer.classList.add("hidden");
+  if (panoramaBg) panoramaBg.classList.remove("hidden"); // Bring menu background back
 }
