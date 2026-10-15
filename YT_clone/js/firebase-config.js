@@ -5,12 +5,12 @@ import { getFirestore } from "https://www.gstatic.com/firebasejs/10.5.0/firebase
 
 // TODO: Replace with your actual Firebase project config
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.firebasestorage.app",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyA8GyIPrShWyOSm_OX5zfMFJYAjiANFVXo",
+  authDomain: "dev-backend-cae4a.firebaseapp.com",
+  projectId: "dev-backend-cae4a",
+  storageBucket: "dev-backend-cae4a.firebasestorage.app",
+  messagingSenderId: "100161214581",
+  appId: "1:100161214581:web:4dceaced143c2647e0803c"
 };
 
 // Initialize Firebase
